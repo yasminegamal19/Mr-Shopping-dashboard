@@ -1,0 +1,130 @@
+:root {
+    --color-primary: #006B5A;
+    --color-primary-hover: #005144;
+    --color-primary-light: #E9F6F3;
+    --color-primary-soft: #d7e5e2;
+
+    --color-secondary: #0f172a;
+    --color-secondary-light: #1e293b;
+
+    --color-background: #f8fafc;
+    --color-surface: #ffffff;
+    --color-surface-hover: #f8fafc;
+
+    --color-text-primary: #0f172a;
+    --color-text-secondary: #64748b;
+    --color-text-muted: #94a3b8;
+    --color-text-white: #ffffff;
+
+    --color-border: #e2e8f0;
+    --color-border-light: #f1f5f9;
+
+    --color-success: #16a34a;
+    --color-success-light: #f0fdf4;
+
+    --color-warning: #f59e0b;
+    --color-warning-light: #fffbeb;
+
+    --color-danger: #dc2626;
+    --color-danger-light: #fef2f2;
+
+    --color-info: #2563eb;
+    --color-info-light: #eff6ff;
+
+
+    --font-family: "Inter", Arial, sans-serif;
+
+    --font-size-xs: 0.75rem;
+    --font-size-sm: 0.875rem;
+    --font-size-base: 1rem;
+    --font-size-md: 1.125rem;
+    --font-size-lg: 1.25rem;
+    --font-size-xl: 1.5rem;
+    --font-size-2xl: 1.875rem;
+    --font-size-3xl: 2.25rem;
+
+    --font-weight-regular: 400;
+    --font-weight-medium: 500;
+    --font-weight-semibold: 600;
+    --font-weight-bold: 700;
+
+    --spacing-1: 0.25rem;
+    --spacing-2: 0.5rem;
+    --spacing-3: 0.75rem;
+    --spacing-4: 1rem;
+    --spacing-5: 1.25rem;
+    --spacing-6: 1.5rem;
+    --spacing-8: 2rem;
+    --spacing-10: 2.5rem;
+    --spacing-12: 3rem;
+
+
+    --radius-sm: 6px;
+    --radius-md: 10px;
+    --radius-lg: 14px;
+    --radius-xl: 18px;
+    --radius-full: 9999px;
+
+
+    --shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.05);
+
+    --shadow-md:
+        0 4px 6px rgba(15, 23, 42, 0.05),
+        0 2px 4px rgba(15, 23, 42, 0.03);
+
+    --shadow-lg:
+        0 12px 24px rgba(15, 23, 42, 0.08),
+        0 4px 8px rgba(15, 23, 42, 0.04);
+
+
+    --sidebar-width: 260px;
+    --topbar-height: 72px;
+    --page-max-width: 1600px;
+
+
+    --transition-fast: 0.15s ease;
+    --transition-base: 0.2s ease;
+    --transition-slow: 0.3s ease;
+}
+
+
+
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    min-width: 320px;
+    background: var(--color-background);
+    color: var(--color-text-primary);
+    font-family: var(--font-family);
+    font-size: var(--font-size-base);
+    line-height: 1.5;
+}
+
+button,
+input,
+textarea,
+select {
+    font: inherit;
+}
+
+button {
+    cursor: pointer;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+img {
+    display: block;
+    max-width: 100%;
+}
