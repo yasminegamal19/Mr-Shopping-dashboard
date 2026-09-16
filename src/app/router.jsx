@@ -1,8 +1,16 @@
 import { Navigate, Route, Routes } from "react-router-dom";
 
 import Login from "../pages/auth/Login";
+import AdminLayout from "../layouts/AdminLayout/AdminLayout";
 import AdminDashboard from "../pages/admin/AdminDashboard";
 import ProviderDashboard from "../pages/provider/ProviderDashboard";
+import Users from "../pages/admin/users/Users";
+import Providers from "../pages/admin/providers/Providers";
+import ProviderDetails from "../pages/admin/providers/ProviderDetails";
+import Delivery from "../pages/admin/delivery/Delivery";
+import Categories from "../pages/admin/categories/Categories";
+import Products from "../pages/admin/products/Products";
+import Services from "../pages/admin/services/Services";
 
 import { getAuth } from "../services/mockAuth";
 
@@ -34,13 +42,23 @@ function Router() {
       <Route path="/login" element={<Login />} />
 
       <Route
-        path="/admin/dashboard"
+        path="/admin"
         element={
           <ProtectedRoute allowedRole="admin">
-            <AdminDashboard />
+            <AdminLayout />
           </ProtectedRoute>
         }
-      />
+      >
+        <Route index element={<Navigate to="/admin/dashboard" replace />} />
+        <Route path="dashboard" element={<AdminDashboard />} />
+        <Route path="users" element={<Users />} />
+        <Route path="providers" element={<Providers />} />
+        <Route path="providers/:id" element={<ProviderDetails />} />
+        <Route path="delivery" element={<Delivery />} />
+        <Route path="categories" element={<Categories />} />
+        <Route path="products" element={<Products />} />
+        <Route path="services" element={<Services />} />
+      </Route>
 
       <Route
         path="/provider/dashboard"
