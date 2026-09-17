@@ -8,6 +8,7 @@ import {
   Package,
   Settings,
   Settings2,
+  Settings2Icon,
   ShoppingBag,
   Store,
   Users,
@@ -69,6 +70,11 @@ function AdminLayout() {
       path: "/admin/services",
       icon: Settings2,
     },
+    {
+      label: "Payments",
+      path: "/admin/payments",
+      icon: Settings2Icon,
+    }
   ];
 
   const handleLogout = () => {

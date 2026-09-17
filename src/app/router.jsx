@@ -11,6 +11,8 @@ import Delivery from "../pages/admin/delivery/Delivery";
 import Categories from "../pages/admin/categories/Categories";
 import Products from "../pages/admin/products/Products";
 import Services from "../pages/admin/services/Services";
+import Orders from "../pages/admin/orders/Orders";
+import Payments from "../pages/admin/payments/Payments";
 
 import { getAuth } from "../services/mockAuth";
 
@@ -58,6 +60,8 @@ function Router() {
         <Route path="categories" element={<Categories />} />
         <Route path="products" element={<Products />} />
         <Route path="services" element={<Services />} />
+        <Route path="orders" element={<Orders />} />
+        <Route path="payments" element={<Payments />} />
       </Route>
 
       <Route
