@@ -13,6 +13,10 @@ import {
   Store,
   Users,
   X,
+  CreditCard,
+  Tag,
+  Package2,
+  MessageSquareWarning,
 } from "lucide-react";
 import { useState } from "react";
 
@@ -58,12 +62,7 @@ function AdminLayout() {
     {
       label: "Products",
       path: "/admin/products",
-      icon: Package,
-    },
-    {
-      label: "Orders",
-      path: "/admin/orders",
-      icon: ShoppingBag,
+      icon: Package2,
     },
     {
       label: "Services",
@@ -71,10 +70,30 @@ function AdminLayout() {
       icon: Settings2,
     },
     {
+      label: "Orders",
+      path: "/admin/orders",
+      icon: ShoppingBag,
+    },
+    {
       label: "Payments",
       path: "/admin/payments",
       icon: Settings2Icon,
-    }
+    },
+    {
+      label: "Plans",
+      path: "/admin/plans",
+      icon: CreditCard,
+    },
+    {
+      label: "Offers",
+      path: "/admin/offers",
+      icon: Tag,
+    },
+    {
+      label: "Complaints",
+      path: "/admin/complaints",
+      icon: MessageSquareWarning,
+    },
   ];
 
   const handleLogout = () => {

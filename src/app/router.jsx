@@ -13,7 +13,12 @@ import Products from "../pages/admin/products/Products";
 import Services from "../pages/admin/services/Services";
 import Orders from "../pages/admin/orders/Orders";
 import Payments from "../pages/admin/payments/Payments";
+import Plans from "../pages/admin/plans/Plans";
+import Offers from "../pages/admin/offers/Offers";
+import Complaints from "../pages/admin/complaints/Complaints";
 
+import ProviderOverview from "../pages/provider/ProviderOverview";
+import ProviderLayout from "../layouts/ProviderLayout/ProviderLayout";
 import { getAuth } from "../services/mockAuth";
 
 function ProtectedRoute({ children, allowedRole }) {
@@ -62,16 +67,22 @@ function Router() {
         <Route path="services" element={<Services />} />
         <Route path="orders" element={<Orders />} />
         <Route path="payments" element={<Payments />} />
+        <Route path="plans" element={<Plans />} />
+        <Route path="offers" element={<Offers />} />
+        <Route path="complaints" element={<Complaints />} />
       </Route>
 
       <Route
-        path="/provider/dashboard"
+        path="/provider"
         element={
           <ProtectedRoute allowedRole="provider">
-            <ProviderDashboard />
+            <ProviderLayout />
           </ProtectedRoute>
         }
-      />
+      >
+        <Route index element={<Navigate to="/provider/dashboard" replace />} />
+        <Route path="dashboard" element={<ProviderDashboard />} />
+      </Route>
 
       <Route path="/" element={<Navigate to="/login" replace />} />
 
