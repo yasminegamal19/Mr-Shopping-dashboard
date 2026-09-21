@@ -4,7 +4,6 @@
     background: var(--color-background);
 }
 
-/* Header */
 
 .complaints-header {
     display: flex;
@@ -25,8 +24,6 @@
     color: var(--color-text-secondary);
     font-size: 14px;
 }
-
-/* Stats */
 
 .complaints-stats {
     display: grid;
@@ -96,8 +93,6 @@
     font-weight: var(--font-weight-bold);
 }
 
-/* Toolbar */
-
 .complaints-toolbar {
     display: flex;
     align-items: center;
@@ -160,8 +155,6 @@
     cursor: pointer;
 }
 
-/* Card / Table */
-
 .complaints-card {
     overflow: hidden;
     background: var(--color-surface);
@@ -214,9 +207,6 @@
 .complaints-table tbody tr:hover {
     background: var(--color-background);
 }
-
-/* Complaint */
-
 .complaint-main {
     display: flex;
     flex-direction: column;
@@ -234,9 +224,6 @@
     color: var(--color-text-muted);
     font-size: 11px;
 }
-
-/* Person */
-
 .person-cell {
     display: flex;
     align-items: center;
@@ -269,17 +256,12 @@
     color: var(--color-text-muted);
     font-size: 10px;
 }
-
-/* Order */
-
 .order-id {
     color: var(--color-primary);
     font-size: 12px;
     font-weight: var(--font-weight-semibold);
     white-space: nowrap;
 }
-
-/* Badges */
 
 .status-badge,
 .priority-badge {
@@ -336,8 +318,6 @@
     white-space: nowrap;
 }
 
-/* Action */
-
 .icon-action-button {
     width: 34px;
     height: 34px;
@@ -357,8 +337,6 @@
     background: var(--color-primary-soft);
     border-color: var(--color-primary-light);
 }
-
-/* Pagination */
 
 .complaints-pagination {
     min-height: 58px;
@@ -405,8 +383,6 @@
     cursor: not-allowed;
 }
 
-/* Empty */
-
 .empty-state {
     padding: 60px 20px;
     text-align: center;
@@ -427,8 +403,6 @@
     margin: 0;
     font-size: 12px;
 }
-
-/* Modal */
 
 .complaint-modal-overlay {
     position: fixed;
@@ -494,7 +468,6 @@
     padding: 24px;
 }
 
-/* Modal info */
 
 .complaint-info-grid {
     display: grid;
@@ -521,8 +494,6 @@
     color: var(--color-text-primary);
     font-size: 12px;
 }
-
-/* People */
 
 .complaint-people {
     display: grid;
@@ -574,8 +545,6 @@
     font-size: 10px;
 }
 
-/* Description */
-
 .description-box {
     padding: 16px;
     margin-bottom: 20px;
@@ -598,8 +567,6 @@
     font-size: 13px;
     line-height: 1.7;
 }
-
-/* Status Management */
 
 .status-management {
     display: flex;
@@ -661,8 +628,6 @@
 .status-actions button:hover {
     filter: brightness(0.96);
 }
-
-/* Responsive */
 
 @media (max-width: 1250px) {
     .complaints-stats {

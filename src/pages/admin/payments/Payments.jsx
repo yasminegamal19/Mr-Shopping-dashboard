@@ -209,7 +209,6 @@ function Payments() {
 
   return (
     <div className="payments-page">
-      {/* Header */}
       <div className="payments-header">
         <div>
           <h1>Payments</h1>
@@ -221,7 +220,6 @@ function Payments() {
         </div>
       </div>
 
-      {/* Stats */}
       <div className="payments-stats">
         <div className="payment-stat-card">
           <div className="payment-stat-icon total">
@@ -280,7 +278,6 @@ function Payments() {
         </div>
       </div>
 
-      {/* Toolbar */}
       <div className="payments-toolbar">
         <div className="payments-search">
           <Search size={18} />
@@ -326,7 +323,6 @@ function Payments() {
         </div>
       </div>
 
-      {/* Table */}
       <div className="payments-table-card">
         <div className="payments-table-wrapper">
           <table className="payments-table">
@@ -493,7 +489,6 @@ function Payments() {
           </table>
         </div>
 
-        {/* Footer */}
         <div className="payments-table-footer">
           <span>
             Showing {filteredPayments.length} of {payments.length} transactions
@@ -509,7 +504,6 @@ function Payments() {
         </div>
       </div>
 
-      {/* Details Modal */}
       {selectedPayment && (
         <div
           className="payment-modal-overlay"
@@ -532,7 +526,6 @@ function Payments() {
             </div>
 
             <div className="payment-modal-body">
-              {/* Summary */}
               <div className="payment-summary">
                 <div>
                   <span>Amount</span>
@@ -555,7 +548,6 @@ function Payments() {
                 </div>
               </div>
 
-              {/* Transaction */}
               <div className="payment-modal-section">
                 <div className="payment-section-title">
                   <Receipt size={17} />
@@ -590,7 +582,6 @@ function Payments() {
                 </div>
               </div>
 
-              {/* Customer / Provider */}
               <div className="payment-modal-section">
                 <div className="payment-section-title">
                   <User size={17} />
@@ -613,7 +604,6 @@ function Payments() {
                 </div>
               </div>
 
-              {/* Status */}
               <div className="payment-modal-section">
                 <div className="payment-section-title">
                   <CalendarDays size={17} />

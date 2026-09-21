@@ -259,7 +259,6 @@ function Plans() {
 
   return (
     <div className="plans-page">
-      {/* Page Header */}
       <div className="plans-header">
         <div>
           <h1>Plans</h1>
@@ -272,7 +271,6 @@ function Plans() {
         </button>
       </div>
 
-      {/* Stats */}
       <div className="plans-stats">
         <div className="plan-stat-card">
           <div className="stat-icon purple">
@@ -319,7 +317,6 @@ function Plans() {
         </div>
       </div>
 
-      {/* Filters */}
       <div className="plans-toolbar">
         <div className="plans-search">
           <Search size={18} />
@@ -357,7 +354,6 @@ function Plans() {
         )}
       </div>
 
-      {/* Table */}
       <div className="plans-table-card">
         <div className="table-wrapper">
           <table className="plans-table">
@@ -500,7 +496,6 @@ function Plans() {
           </table>
         </div>
 
-        {/* Pagination */}
         {filteredPlans.length > 0 && (
           <div className="plans-pagination">
             <span>
@@ -542,7 +537,6 @@ function Plans() {
         )}
       </div>
 
-      {/* View Modal */}
       {modalType === "view" && selectedPlan && (
         <div className="modal-overlay" onClick={closeModal}>
           <div className="plan-modal" onClick={(e) => e.stopPropagation()}>
@@ -648,7 +642,6 @@ function Plans() {
         </div>
       )}
 
-      {/* Add / Edit Modal */}
       {(modalType === "add" || modalType === "edit") && (
         <div className="modal-overlay" onClick={closeModal}>
           <div

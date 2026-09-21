@@ -1,17 +1,18 @@
 import { NavLink } from "react-router-dom";
 import { getProviderModules } from "../../features/providers/providerModules";
 import { mockProvider } from "../../features/providers/providerConfig";
+import logo from "../../assets/logo.png"; 
 import "./ProviderSidebar.css";
 
-export default function ProviderSidebar() {
+export default function ProviderSidebar({ open, onClose }) {
   const modules = getProviderModules(mockProvider);
 
   return (
-    <aside className="provider-sidebar">
+    <aside className={`provider-sidebar ${open ? "open" : ""}`}>
       <div className="provider-sidebar-brand">
-        <div className="provider-logo">S</div>
+        <img src={logo} alt="Shopping Mr" className="provider-logo-img" />
 
-        <div>
+        <div className="provider-brand-text">
           <h2>Shopping Mr</h2>
           <span>Provider Portal</span>
         </div>
@@ -29,6 +30,7 @@ export default function ProviderSidebar() {
                 key={module.key}
                 to={module.path}
                 end={module.path === "/provider"}
+                onClick={onClose}
                 className={({ isActive }) =>
                   `provider-nav-link ${isActive ? "active" : ""}`
                 }
@@ -47,7 +49,7 @@ export default function ProviderSidebar() {
             {mockProvider.ownerName.charAt(0)}
           </div>
 
-          <div>
+          <div className="provider-sidebar-provider-info">
             <strong>{mockProvider.ownerName}</strong>
             <span>{mockProvider.name}</span>
           </div>

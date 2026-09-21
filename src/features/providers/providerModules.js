@@ -15,6 +15,7 @@ import {
   MessageCircle,
   Bell,
   Settings,
+  User2,
 } from "lucide-react";
 
 import { providerTypes } from "./providerConfig";
@@ -35,6 +36,12 @@ const commonModules = [
 ];
 
 const commonAfterBusinessModules = [
+  {
+    key: "customers",
+    label: "Customers",
+    path: "/provider/customers",
+    icon: User2,
+  },
   {
     key: "payments",
     label: "Payments",

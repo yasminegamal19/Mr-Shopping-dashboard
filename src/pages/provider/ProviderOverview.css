@@ -4,7 +4,6 @@
     background: var(--color-background);
 }
 
-/* Header */
 
 .provider-overview-header {
     display: flex;
@@ -47,7 +46,6 @@
     font-size: 12px;
 }
 
-/* Stats */
 
 .provider-stats-grid {
     display: grid;
@@ -130,7 +128,6 @@
     font-weight: var(--font-weight-semibold);
 }
 
-/* Dashboard Grid */
 
 .provider-dashboard-grid {
     display: grid;
@@ -144,7 +141,6 @@
     gap: 20px;
 }
 
-/* Panel */
 
 .provider-panel {
     background: var(--color-surface);
@@ -188,7 +184,6 @@
     cursor: pointer;
 }
 
-/* Orders */
 
 .provider-orders-table-wrapper {
     overflow-x: auto;
@@ -271,7 +266,6 @@
     background: var(--color-primary-soft);
 }
 
-/* Rating */
 
 .provider-rating-panel {
     padding-bottom: 18px;
@@ -340,7 +334,6 @@
     border-radius: inherit;
 }
 
-/* Quick Actions */
 
 .provider-quick-actions {
     padding: 10px 20px 15px;
@@ -379,7 +372,6 @@
     color: var(--color-primary);
 }
 
-/* Responsive */
 
 @media (max-width: 1200px) {
     .provider-stats-grid {

@@ -313,7 +313,6 @@ function Offers() {
 
   return (
     <div className="offers-page">
-      {/* Header */}
       <div className="offers-header">
         <div>
           <h1>Offers</h1>
@@ -326,7 +325,6 @@ function Offers() {
         </button>
       </div>
 
-      {/* Stats */}
       <div className="offers-stats">
         <div className="offer-stat-card">
           <div className="offer-stat-icon purple">
@@ -373,7 +371,6 @@ function Offers() {
         </div>
       </div>
 
-      {/* Filters */}
       <div className="offers-toolbar">
         <div className="offers-search">
           <Search size={18} />
@@ -423,7 +420,6 @@ function Offers() {
         )}
       </div>
 
-      {/* Table */}
       <div className="offers-table-card">
         <div className="table-wrapper">
           <table className="offers-table">
@@ -578,7 +574,6 @@ function Offers() {
           </table>
         </div>
 
-        {/* Pagination */}
         {filteredOffers.length > 0 && (
           <div className="offers-pagination">
             <span>
@@ -620,7 +615,6 @@ function Offers() {
         )}
       </div>
 
-      {/* View Modal */}
       {modalType === "view" && selectedOffer && (
         <div className="modal-overlay" onClick={closeModal}>
           <div className="offer-modal" onClick={(e) => e.stopPropagation()}>
@@ -746,7 +740,6 @@ function Offers() {
         </div>
       )}
 
-      {/* Add / Edit Modal */}
       {(modalType === "add" || modalType === "edit") && (
         <div className="modal-overlay" onClick={closeModal}>
           <div

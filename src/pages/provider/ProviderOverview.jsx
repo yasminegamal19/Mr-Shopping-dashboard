@@ -99,7 +99,6 @@ const getOrderStatusClass = (status) => {
 export default function ProviderOverview() {
   return (
     <div className="provider-overview">
-      {/* Header */}
       <div className="provider-overview-header">
         <div>
           <h1>Good afternoon, {mockProvider.ownerName}</h1>
@@ -112,7 +111,6 @@ export default function ProviderOverview() {
         </div>
       </div>
 
-      {/* Stats */}
       <div className="provider-stats-grid">
         {stats.map((stat) => {
           const Icon = stat.icon;
@@ -140,9 +138,7 @@ export default function ProviderOverview() {
         })}
       </div>
 
-      {/* Main Grid */}
       <div className="provider-dashboard-grid">
-        {/* Recent Orders */}
         <section className="provider-panel provider-orders-panel">
           <div className="provider-panel-header">
             <div>
@@ -210,9 +206,7 @@ export default function ProviderOverview() {
           </div>
         </section>
 
-        {/* Right column */}
         <div className="provider-side-panels">
-          {/* Rating */}
           <section className="provider-panel provider-rating-panel">
             <div className="provider-panel-header">
               <div>
@@ -280,7 +274,6 @@ export default function ProviderOverview() {
             </div>
           </section>
 
-          {/* Quick Actions */}
           <section className="provider-panel provider-quick-panel">
             <div className="provider-panel-header">
               <div>

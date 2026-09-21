@@ -256,7 +256,6 @@ export default function Complaints() {
         </div>
       </div>
 
-      {/* Stats */}
       <div className="complaints-stats">
         <div className="complaint-stat-card">
           <div className="complaint-stat-icon total">
@@ -314,7 +313,6 @@ export default function Complaints() {
         </div>
       </div>
 
-      {/* Filters */}
       <div className="complaints-toolbar">
         <div className="complaints-search">
           <Search size={18} />
@@ -351,7 +349,6 @@ export default function Complaints() {
         </div>
       </div>
 
-      {/* Table */}
       <div className="complaints-card">
         <div className="complaints-table-wrapper">
           <table className="complaints-table">
@@ -481,7 +478,6 @@ export default function Complaints() {
         </div>
       </div>
 
-      {/* Details Modal */}
       {selectedComplaint && (
         <div
           className="complaint-modal-overlay"

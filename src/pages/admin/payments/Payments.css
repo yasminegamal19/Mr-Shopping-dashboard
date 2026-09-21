@@ -4,9 +4,6 @@
     background: var(--color-background);
 }
 
-/* =========================
-   Header
-========================= */
 
 .payments-header {
     margin-bottom: var(--spacing-6);
@@ -24,10 +21,6 @@
     color: var(--color-text-secondary);
     font-size: var(--font-size-sm);
 }
-
-/* =========================
-   Stats
-========================= */
 
 .payments-stats {
     display: grid;
@@ -98,10 +91,6 @@
     font-size: var(--font-size-xl);
     font-weight: var(--font-weight-bold);
 }
-
-/* =========================
-   Toolbar
-========================= */
 
 .payments-toolbar {
     display: flex;
@@ -181,9 +170,6 @@
     pointer-events: none;
 }
 
-/* =========================
-   Table
-========================= */
 
 .payments-table-card {
     overflow: hidden;
@@ -235,9 +221,6 @@
     border-bottom: 0;
 }
 
-/* =========================
-   Payment Cell
-========================= */
 
 .payment-id-cell {
     display: flex;
@@ -281,10 +264,6 @@
     font-weight: var(--font-weight-medium);
 }
 
-/* =========================
-   Customer
-========================= */
-
 .payment-person-cell {
     display: flex;
     align-items: center;
@@ -311,9 +290,6 @@
     font-size: var(--font-size-sm);
 }
 
-/* =========================
-   Provider
-========================= */
 
 .payment-provider {
     display: flex;
@@ -326,10 +302,6 @@
     color: var(--color-text-muted);
     flex-shrink: 0;
 }
-
-/* =========================
-   Payment Data
-========================= */
 
 .payment-amount {
     color: var(--color-text-primary);
@@ -374,10 +346,6 @@
     font-size: var(--font-size-xs);
     white-space: nowrap;
 }
-
-/* =========================
-   Actions
-========================= */
 
 .payment-actions {
     display: flex;
@@ -447,10 +415,6 @@
     background: var(--color-danger-light);
 }
 
-/* =========================
-   Empty
-========================= */
-
 .payments-empty {
     min-height: 280px;
     display: flex;
@@ -483,10 +447,6 @@
     color: var(--color-text-muted);
     font-size: var(--font-size-sm);
 }
-
-/* =========================
-   Footer
-========================= */
 
 .payments-table-footer {
     min-height: 60px;
@@ -537,10 +497,6 @@
     border-color: var(--color-primary);
     color: var(--color-text-white);
 }
-
-/* =========================
-   Modal
-========================= */
 
 .payment-modal-overlay {
     position: fixed;
@@ -607,10 +563,6 @@
     overflow-y: auto;
 }
 
-/* =========================
-   Modal Summary
-========================= */
-
 .payment-summary {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -636,10 +588,6 @@
     color: var(--color-text-primary);
     font-size: var(--font-size-sm);
 }
-
-/* =========================
-   Modal Sections
-========================= */
 
 .payment-modal-section {
     padding: 18px 0;
@@ -700,10 +648,6 @@
     border-radius: var(--radius-md);
 }
 
-/* =========================
-   Status Box
-========================= */
-
 .payment-status-box {
     padding: 15px;
     background: var(--color-background);
@@ -725,10 +669,6 @@
     color: var(--color-text-muted);
     font-size: var(--font-size-xs);
 }
-
-/* =========================
-   Modal Footer
-========================= */
 
 .payment-modal-footer {
     display: flex;
@@ -771,10 +711,6 @@
     border-color: var(--color-primary-hover);
     background: var(--color-primary-hover);
 }
-
-/* =========================
-   Responsive
-========================= */
 
 @media (max-width: 1250px) {
     .payments-stats {

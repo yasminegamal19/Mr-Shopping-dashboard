@@ -3,7 +3,6 @@
     padding-bottom: var(--spacing-8);
 }
 
-/* Header */
 
 .offers-header {
     display: flex;
@@ -26,7 +25,6 @@
     font-size: var(--font-size-sm);
 }
 
-/* Buttons */
 
 .primary-btn,
 .secondary-btn {
@@ -64,7 +62,6 @@
     background: var(--color-background);
 }
 
-/* Stats */
 
 .offers-stats {
     display: grid;
@@ -132,8 +129,6 @@
     color: var(--color-text-primary);
     font-size: var(--font-size-xl);
 }
-
-/* Toolbar */
 
 .offers-toolbar {
     display: flex;
@@ -203,8 +198,6 @@
     color: var(--color-danger);
 }
 
-/* Table */
-
 .offers-table-card {
     overflow: hidden;
     border: 1px solid var(--color-border-light);
@@ -252,8 +245,6 @@
 .offers-table tbody tr:hover {
     background: var(--color-background);
 }
-
-/* Offer cell */
 
 .offer-name-cell {
     display: flex;
@@ -378,8 +369,6 @@
     font-size: 11px;
 }
 
-/* Status */
-
 .offer-status {
     display: inline-flex;
     align-items: center;
@@ -412,8 +401,6 @@
     border-radius: 50%;
     background: currentColor;
 }
-
-/* Actions */
 
 .action-wrapper {
     position: relative;
@@ -471,8 +458,6 @@
     background: var(--color-background);
 }
 
-/* Empty */
-
 .empty-state {
     padding: 65px 20px;
     text-align: center;
@@ -501,9 +486,6 @@
     color: var(--color-text-secondary);
     font-size: var(--font-size-sm);
 }
-
-/* Pagination */
-
 .offers-pagination {
     min-height: 62px;
     display: flex;
@@ -557,9 +539,6 @@
     opacity: 0.45;
     cursor: not-allowed;
 }
-
-/* Modal */
-
 .modal-overlay {
     position: fixed;
     z-index: 100;
@@ -620,8 +599,6 @@
 .modal-close:hover {
     color: var(--color-text-primary);
 }
-
-/* View details */
 
 .offer-detail-content {
     padding: 24px;
@@ -729,9 +706,6 @@
     border-radius: inherit;
     background: var(--color-primary);
 }
-
-/* Form */
-
 .form-content {
     display: grid;
     gap: 17px;
@@ -782,8 +756,6 @@
     font-size: 11px;
 }
 
-/* Footer */
-
 .modal-footer {
     display: flex;
     align-items: center;
@@ -792,8 +764,6 @@
     padding: 16px 24px;
     border-top: 1px solid var(--color-border-light);
 }
-
-/* Responsive */
 
 @media (max-width: 1100px) {
     .offers-stats {
