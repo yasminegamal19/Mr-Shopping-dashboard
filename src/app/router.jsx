@@ -25,8 +25,7 @@ import ProviderEarnings from "../pages/provider/earnings/ProviderEarnings";
 import ProviderReviews from "../pages/provider/reviews/ProviderReviews";
 import ProviderCustomers from "../pages/provider/customers/ProviderCustomers";
 
-import { getAuth } from "../services/mockAuth";
-
+import { getAuth } from "../services/authStorage";
 function ProtectedRoute({ children, allowedRole }) {
   const auth = getAuth();
 

@@ -1,32 +1,45 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Navigate } from "react-router-dom";
+
+import "./Login.css";
+
 import {
   Eye,
   EyeOff,
   LockKeyhole,
-  Mail,
+  Phone,
   ArrowUpRight,
   ShieldCheck,
   Store,
 } from "lucide-react";
-
-import "./Login.css";
-
-import { loginMockUser, saveAuth } from "../../services/mockAuth";
+import { loginUser } from "../../services/authService";
+import { getAuth } from "../../services/authService";
 
 function Login() {
   const navigate = useNavigate();
 
   const [showPassword, setShowPassword] = useState(false);
+const [formData, setFormData] = useState({ phone: "", password: "" });
 
-  const [formData, setFormData] = useState({
-    email: "",
-    password: "",
-  });
 
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
+
+  const auth = getAuth();
+
+  if (auth?.token && auth?.user) {
+    return (
+      <Navigate
+        to={
+          auth.user.role === "admin"
+            ? "/admin/dashboard"
+            : "/provider/dashboard"
+        }
+        replace
+      />
+    );
+  }
   const handleChange = (e) => {
     const { name, value } = e.target;
 
@@ -40,31 +53,23 @@ function Login() {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-
     setError("");
     setIsLoading(true);
 
-    setTimeout(() => {
-      const result = loginMockUser(formData.email, formData.password);
+    const result = await loginUser(formData.phone, formData.password);
 
-      if (!result.success) {
-        setError(result.message);
-        setIsLoading(false);
-        return;
-      }
+    setIsLoading(false);
 
-      saveAuth(result);
+    if (!result.success) {
+      setError(result.message);
+      return;
+    }
 
-      if (result.user.role === "admin") {
-        navigate("/admin/dashboard");
-      } else if (result.user.role === "provider") {
-        navigate("/provider/dashboard");
-      }
-
-      setIsLoading(false);
-    }, 600);
+    navigate(
+      result.user.role === "admin" ? "/admin/dashboard" : "/provider/dashboard",
+    );
   };
 
   return (
@@ -155,19 +160,19 @@ function Login() {
 
           <form onSubmit={handleSubmit} className="login-form">
             <div className="form-group">
-              <label htmlFor="email">Email Address</label>
+              <label htmlFor="phone">Phone Number</label>
 
               <div className="input-wrapper">
-                <Mail size={18} />
+                <Phone size={18} />
 
                 <input
-                  id="email"
-                  type="email"
-                  name="email"
-                  placeholder="Enter your email"
-                  value={formData.email}
+                  id="phone"
+                  type="tel"
+                  name="phone"
+                  placeholder="+201001234567"
+                  value={formData.phone}
                   onChange={handleChange}
-                  autoComplete="email"
+                  autoComplete="tel"
                   required
                 />
               </div>

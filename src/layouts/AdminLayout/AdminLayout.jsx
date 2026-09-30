@@ -20,7 +20,7 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 
-import { getAuth, logout } from "../../services/mockAuth";
+import { getAuth, logout } from "../../services/authService";
 
 import "./AdminLayout.css";
 
