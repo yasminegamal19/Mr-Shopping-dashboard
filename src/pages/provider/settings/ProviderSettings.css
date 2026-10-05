@@ -432,3 +432,14 @@
         bottom: var(--spacing-4);
     }
 }
+
+.st-field input.readonly {
+    background: var(--color-border-light);
+    color: var(--color-text-muted);
+    cursor: not-allowed;
+}
+
+.st-field input.readonly:focus {
+    border-color: var(--color-border);
+    box-shadow: none;
+}

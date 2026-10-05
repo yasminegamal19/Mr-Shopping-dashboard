@@ -1,15 +1,68 @@
-import { useState, useEffect, useRef } from "react";
-import { Store, Clock, Bell, Lock, Check, Eye, EyeOff } from "lucide-react";
-import { mockProvider } from "../../../features/providers/providerConfig";
+import { useState, useEffect, useRef, useCallback } from "react";
+import {
+  Store,
+  Clock,
+  Bell,
+  Lock,
+  Check,
+  Eye,
+  EyeOff,
+  Camera,
+} from "lucide-react";
+import { updateAuthUser } from "../../../services/authStorage";
+import {
+  getProviderProfile,
+  updateProviderProfile,
+} from "../../../services/providerService";
+import { ApiError } from "../../../services/apiClient";
+import { normalizePhone } from "../../../utils/phone";
+import { fixImageUrl } from "../../../utils/image";
 import "./ProviderSettings.css";
 
-const initialStore = {
-  name: mockProvider.name,
-  ownerName: mockProvider.ownerName,
-  phone: "0100 123 4567",
-  email: "provider@shoppingmr.com",
-  address: "12 Tahrir St, Giza",
-  description: "Fresh groceries delivered to your door.",
+const emptyStore = {
+  name: "",
+  ownerName: "",
+  phone: "",
+  email: "",
+  address: "",
+  description: "",
+};
+
+// تحويل response الـ GET /provider/profile لشكل الفورم
+// ⚠️ أسماء الحقول تخمين لحد ما نشوف الـ response الحقيقي
+const mapProfile = (data) => {
+  const d = data ?? {};
+  const user = d.user ?? d.profile ?? d;
+  const provider = d.provider ?? user.provider ?? {};
+  const storeObj = d.store ?? provider.store ?? user.store ?? {};
+  const addresses = d.addresses ?? provider.addresses ?? user.addresses ?? [];
+  const addr = Array.isArray(addresses) ? addresses[0] : null;
+
+  const address =
+    typeof addr === "string"
+      ? addr
+      : (addr?.full_address ??
+        addr?.address ??
+        [addr?.street, addr?.city].filter(Boolean).join(", "));
+
+  return {
+    store: {
+      name: storeObj.store_name ?? storeObj.name ?? "",
+      ownerName: user.full_name ?? d.full_name ?? "",
+      phone: user.phone ?? d.phone ?? "",
+      email: user.email ?? d.email ?? "",
+      address: address ?? "",
+      description:
+        user.description ??
+        provider.description ??
+        storeObj.description ??
+        d.description ??
+        "",
+    },
+    image: fixImageUrl(
+      user.profile_image_url ?? d.profile_image_url ?? storeObj.logo_url ?? "",
+    ),
+  };
 };
 
 const days = [
@@ -94,7 +147,7 @@ function Switch({ checked, onChange, label }) {
 
 export default function ProviderSettings() {
   const [tab, setTab] = useState("store");
-  const [store, setStore] = useState(initialStore);
+  const [store, setStore] = useState(emptyStore);
   const [storeErrors, setStoreErrors] = useState({});
   const [hours, setHours] = useState(initialHours);
   const [notifications, setNotifications] = useState(initialNotifications);
@@ -104,6 +157,12 @@ export default function ProviderSettings() {
   const [toast, setToast] = useState("");
   const toastTimer = useRef(null);
 
+  const [loadingProfile, setLoadingProfile] = useState(true);
+  const [loadError, setLoadError] = useState("");
+  const [savingStore, setSavingStore] = useState(false);
+  const [imageFile, setImageFile] = useState(null);
+  const [imagePreview, setImagePreview] = useState("");
+
   useEffect(() => () => clearTimeout(toastTimer.current), []);
 
   const showToast = (msg) => {
@@ -112,22 +171,114 @@ export default function ProviderSettings() {
     toastTimer.current = setTimeout(() => setToast(""), 2600);
   };
 
+  // جلب البيانات من GET /provider/profile
+  const loadProfile = useCallback(async () => {
+    setLoadingProfile(true);
+    setLoadError("");
+
+    try {
+      const data = await getProviderProfile();
+      console.log("provider profile:", data); // ابعتيهولي لو حقل طلع فاضي
+
+      const mapped = mapProfile(data);
+      setStore(mapped.store);
+      setImagePreview(mapped.image);
+    } catch (err) {
+      setLoadError(
+        err instanceof ApiError && err.status === 500
+          ? "Server error while loading your profile. Please try again later."
+          : (err.message ?? "Could not load your profile."),
+      );
+    } finally {
+      setLoadingProfile(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    loadProfile();
+  }, [loadProfile]);
+
   const setStoreField = (key, value) => {
     setStore((p) => ({ ...p, [key]: value }));
     setStoreErrors((p) => ({ ...p, [key]: undefined }));
   };
 
-  const saveStore = (e) => {
+  const handleImage = (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    if (!["image/jpeg", "image/png", "image/webp"].includes(file.type)) {
+      showToast("Only JPG, PNG or WEBP images are allowed");
+      return;
+    }
+    if (file.size > 4 * 1024 * 1024) {
+      showToast("Image must be less than 4MB");
+      return;
+    }
+
+    setImageFile(file);
+    setImagePreview(URL.createObjectURL(file));
+  };
+
+  const saveStore = async (e) => {
     e.preventDefault();
+
     const err = {};
-    if (!store.name.trim()) err.name = "Store name is required";
     if (!store.ownerName.trim()) err.ownerName = "Owner name is required";
-    if (!/^\S+@\S+\.\S+$/.test(store.email)) err.email = "Enter a valid email";
     if (store.phone.replace(/\D/g, "").length < 10)
       err.phone = "Enter a valid phone number";
     setStoreErrors(err);
     if (Object.keys(err).length) return;
-    showToast("Store info saved");
+
+    setSavingStore(true);
+    try {
+      await updateProviderProfile({
+        full_name: store.ownerName,
+        phone: normalizePhone(store.phone),
+        description: store.description,
+        profile_image: imageFile,
+      });
+
+      setImageFile(null);
+
+      // نجيب البيانات من الـ endpoint تاني عشان نعرض اللي اتحفظ فعلاً
+      try {
+        const fresh = mapProfile(await getProviderProfile());
+        setStore(fresh.store);
+        setImagePreview(fresh.image);
+
+        // نحدّث الاسم والصورة اللي بيظهروا في الـ Header
+        updateAuthUser({
+          full_name: fresh.store.ownerName,
+          phone: fresh.store.phone,
+        });
+      } catch {
+        updateAuthUser({
+          full_name: store.ownerName,
+          phone: normalizePhone(store.phone),
+        });
+      }
+
+      showToast("Store info saved");
+    } catch (error) {
+      if (error instanceof ApiError) {
+        const apiErrors = error.errors || {};
+        setStoreErrors({
+          ownerName: apiErrors.full_name?.[0],
+          phone: apiErrors.phone?.[0],
+          description: apiErrors.description?.[0],
+        });
+        showToast(
+          error.status === 500
+            ? "Server error. Please try again later."
+            : error.message,
+        );
+      } else {
+        showToast("Unexpected error occurred");
+      }
+    } finally {
+      setSavingStore(false);
+    }
   };
 
   const setDay = (day, patch) =>
@@ -166,6 +317,37 @@ export default function ProviderSettings() {
     showToast("Password updated");
   };
 
+  if (loadingProfile) {
+    return (
+      <div className="provider-settings">
+        <div className="settings-header">
+          <h1>Settings</h1>
+          <p>Loading your profile...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (loadError) {
+    return (
+      <div className="provider-settings">
+        <div className="settings-header">
+          <h1>Settings</h1>
+          <p>{loadError}</p>
+        </div>
+        <div>
+          <button
+            type="button"
+            className="st-btn-primary"
+            onClick={loadProfile}
+          >
+            Retry
+          </button>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="provider-settings">
       <div className="settings-header">
@@ -200,12 +382,33 @@ export default function ProviderSettings() {
               </div>
 
               <div className="store-logo-row">
-                <div className="store-logo">{store.name.charAt(0) || "S"}</div>
+                <div className="store-logo">
+                  {imagePreview ? (
+                    <img
+                      src={imagePreview}
+                      alt="Profile"
+                      style={{
+                        width: "100%",
+                        height: "100%",
+                        objectFit: "cover",
+                        borderRadius: "inherit",
+                      }}
+                    />
+                  ) : (
+                    store.name.charAt(0) || "S"
+                  )}
+                </div>
                 <div>
-                  <strong>Store logo</strong>
-                  <span>
-                    Logo upload will be available once the API is connected.
-                  </span>
+                  <strong>Profile image</strong>
+                  <label className="st-link-btn" style={{ cursor: "pointer" }}>
+                    <Camera size={16} /> Change image
+                    <input
+                      type="file"
+                      accept="image/jpeg,image/png,image/webp"
+                      onChange={handleImage}
+                      hidden
+                    />
+                  </label>
                 </div>
               </div>
 
@@ -215,10 +418,9 @@ export default function ProviderSettings() {
                   <input
                     id="s-name"
                     value={store.name}
-                    onChange={(e) => setStoreField("name", e.target.value)}
-                    className={storeErrors.name ? "invalid" : ""}
+                    readOnly
+                    className="readonly"
                   />
-                  {storeErrors.name && <small>{storeErrors.name}</small>}
                 </div>
 
                 <div className="st-field">
@@ -251,10 +453,9 @@ export default function ProviderSettings() {
                     id="s-email"
                     type="email"
                     value={store.email}
-                    onChange={(e) => setStoreField("email", e.target.value)}
-                    className={storeErrors.email ? "invalid" : ""}
+                    readOnly
+                    className="readonly"
                   />
-                  {storeErrors.email && <small>{storeErrors.email}</small>}
                 </div>
 
                 <div className="st-field full">
@@ -262,7 +463,9 @@ export default function ProviderSettings() {
                   <input
                     id="s-address"
                     value={store.address}
-                    onChange={(e) => setStoreField("address", e.target.value)}
+                    readOnly
+                    className="readonly"
+                    placeholder="Addresses are managed separately"
                   />
                 </div>
 
@@ -275,13 +478,21 @@ export default function ProviderSettings() {
                     onChange={(e) =>
                       setStoreField("description", e.target.value)
                     }
+                    className={storeErrors.description ? "invalid" : ""}
                   />
+                  {storeErrors.description && (
+                    <small>{storeErrors.description}</small>
+                  )}
                 </div>
               </div>
 
               <div className="panel-footer">
-                <button type="submit" className="st-btn-primary">
-                  Save Changes
+                <button
+                  type="submit"
+                  className="st-btn-primary"
+                  disabled={savingStore}
+                >
+                  {savingStore ? "Saving..." : "Save Changes"}
                 </button>
               </div>
             </form>

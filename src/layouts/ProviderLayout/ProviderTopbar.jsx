@@ -10,11 +10,21 @@ import {
 } from "lucide-react";
 import { mockProvider } from "../../features/providers/providerConfig";
 import "./ProviderTopbar.css";
+import { useNavigate } from "react-router-dom";
+import { logoutUser } from "../../services/authService";
 
 const ProviderTopbar = ({ onToggleSidebar }) => {
   const [menuOpen, setMenuOpen] = useState(false);
   const menuRef = useRef(null);
+  const navigate = useNavigate();
+  const [isLoggingOut, setIsLoggingOut] = useState(false);
 
+  const handleLogout = async () => {
+    if (isLoggingOut) return;
+    setIsLoggingOut(true);
+    await logoutUser();
+    navigate("/login", { replace: true });
+  };
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (menuRef.current && !menuRef.current.contains(e.target)) {
@@ -87,9 +97,15 @@ const ProviderTopbar = ({ onToggleSidebar }) => {
                 <span>Settings</span>
               </button>
               <hr />
-              <button type="button" className="danger">
+           
+              <button
+                type="button"
+                className="danger"
+                onClick={handleLogout}
+                disabled={isLoggingOut}
+              >
                 <LogOut size={16} />
-                <span>Logout</span>
+                {isLoggingOut ? "Logging out..." : "Logout"}
               </button>
             </div>
           )}

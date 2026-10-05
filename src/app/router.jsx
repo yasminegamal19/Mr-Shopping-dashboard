@@ -1,6 +1,7 @@
 import { Navigate, Route, Routes } from "react-router-dom";
 
 import Login from "../pages/auth/Login";
+import ForgotPassword from "../pages/auth/ForgotPassword";
 import AdminLayout from "../layouts/AdminLayout/AdminLayout";
 import AdminDashboard from "../pages/admin/AdminDashboard";
 import ProviderDashboard from "../pages/provider/ProviderDashboard";
@@ -20,16 +21,18 @@ import Complaints from "../pages/admin/complaints/Complaints";
 import ProviderLayout from "../layouts/ProviderLayout/ProviderLayout";
 import ProviderOrders from "../pages/provider/orders/ProviderOrders";
 import ProviderProducts from "../pages/provider/products/ProviderProducts";
+import ProviderCategories from "../pages/provider/categories/ProviderCategories";
 import ProviderSettings from "../pages/provider/settings/ProviderSettings";
 import ProviderEarnings from "../pages/provider/earnings/ProviderEarnings";
 import ProviderReviews from "../pages/provider/reviews/ProviderReviews";
 import ProviderCustomers from "../pages/provider/customers/ProviderCustomers";
 
 import { getAuth } from "../services/authStorage";
+
 function ProtectedRoute({ children, allowedRole }) {
   const auth = getAuth();
 
-  if (!auth) {
+  if (!auth?.token || !auth?.user) {
     return <Navigate to="/login" replace />;
   }
 
@@ -52,6 +55,7 @@ function Router() {
   return (
     <Routes>
       <Route path="/login" element={<Login />} />
+      <Route path="/forgot-password" element={<ForgotPassword />} />
 
       <Route
         path="/admin"
@@ -89,6 +93,7 @@ function Router() {
         <Route path="dashboard" element={<ProviderDashboard />} />
         <Route path="orders" element={<ProviderOrders />} />
         <Route path="products" element={<ProviderProducts />} />
+        <Route path="categories" element={<ProviderCategories />} />
         <Route path="settings" element={<ProviderSettings />} />
         <Route path="earnings" element={<ProviderEarnings />} />
         <Route path="reviews" element={<ProviderReviews />} />

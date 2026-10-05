@@ -1,6 +1,5 @@
 import {
   LayoutDashboard,
-  UserRound,
   ShoppingBag,
   Package,
   Boxes,
@@ -11,6 +10,7 @@ import {
   Wallet,
   Star,
   Tag,
+  Tags,
   BarChart3,
   MessageCircle,
   Bell,
@@ -18,20 +18,12 @@ import {
   User2,
 } from "lucide-react";
 
-import { providerTypes } from "./providerConfig";
-
 const commonModules = [
   {
     key: "overview",
     label: "Overview",
     path: "/provider",
     icon: LayoutDashboard,
-  },
-  {
-    key: "profile",
-    label: "Profile",
-    path: "/provider/profile",
-    icon: UserRound,
   },
 ];
 
@@ -94,16 +86,22 @@ const commonAfterBusinessModules = [
 
 const productModules = [
   {
-    key: "orders",
-    label: "Orders",
-    path: "/provider/orders",
-    icon: ShoppingBag,
+    key: "categories",
+    label: "Categories",
+    path: "/provider/categories",
+    icon: Tags,
   },
   {
     key: "products",
     label: "Products",
     path: "/provider/products",
     icon: Package,
+  },
+  {
+    key: "orders",
+    label: "Orders",
+    path: "/provider/orders",
+    icon: ShoppingBag,
   },
   {
     key: "inventory",
@@ -146,15 +144,13 @@ const serviceModules = [
   },
 ];
 
-export const getProviderModules = (provider) => {
-  if (!provider) {
+export const getProviderModules = (providerType) => {
+  if (!providerType) {
     return commonModules;
   }
 
   const businessModules =
-    provider.businessType === providerTypes.PRODUCT
-      ? productModules
-      : serviceModules;
+    providerType === "product" ? productModules : serviceModules;
 
   return [...commonModules, ...businessModules, ...commonAfterBusinessModules];
 };

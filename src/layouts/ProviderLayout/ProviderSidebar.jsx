@@ -3,9 +3,10 @@ import { getProviderModules } from "../../features/providers/providerModules";
 import { mockProvider } from "../../features/providers/providerConfig";
 import logo from "../../assets/logo.png"; 
 import "./ProviderSidebar.css";
+import { getProviderType } from "../../services/authStorage";
 
 export default function ProviderSidebar({ open, onClose }) {
-  const modules = getProviderModules(mockProvider);
+  const modules = getProviderModules(getProviderType());
 
   return (
     <aside className={`provider-sidebar ${open ? "open" : ""}`}>

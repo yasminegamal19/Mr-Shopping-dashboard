@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate, Navigate } from "react-router-dom";
+import { useNavigate, Navigate, Link } from "react-router-dom";
 
 import "./Login.css";
 
@@ -214,10 +214,9 @@ const [formData, setFormData] = useState({ phone: "", password: "" });
 
                 <span>Remember me</span>
               </label>
-
-              <button type="button" className="forgot-password">
+              <Link to="/forgot-password" className="forgot-password">
                 Forgot Password?
-              </button>
+              </Link>
             </div>
 
             <button type="submit" className="login-button" disabled={isLoading}>

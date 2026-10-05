@@ -1,12 +1,15 @@
 import { apiRequest, ApiError } from "./apiClient";
-import { saveAuth } from "./authStorage";
+import { saveAuth, logout } from "./authStorage";
+import { normalizePhone } from "../utils/phone";
 
 const ALLOWED_ROLES = ["admin", "provider"];
 
-const normalizePhone = (phone) => {
-  const cleaned = phone.replace(/[\s-]/g, "");
-  if (/^01\d{9}$/.test(cleaned)) return `+2${cleaned}`;
-  return cleaned;
+const toFailure = (err) => {
+  if (err instanceof ApiError) {
+    const firstError = Object.values(err.errors || {})[0]?.[0];
+    return { success: false, message: firstError || err.message };
+  }
+  return { success: false, message: "Unexpected error occurred." };
 };
 
 export const loginUser = async (phone, password) => {
@@ -34,12 +37,59 @@ export const loginUser = async (phone, password) => {
 
     return { success: true, user, token };
   } catch (err) {
-    if (err instanceof ApiError) {
-      const firstError = Object.values(err.errors || {})[0]?.[0];
-      return { success: false, message: firstError || err.message };
-    }
-    return { success: false, message: "Unexpected error occurred." };
+    return toFailure(err);
   }
 };
 
-export { logout, getAuth, isAuthenticated } from "./authStorage";
+export const logoutUser = async () => {
+  try {
+    await apiRequest("/auth/logout", { method: "POST", redirectOn401: false });
+  } catch {
+  } finally {
+    logout();
+  }
+};
+
+export const forgotPassword = async (email) => {
+  try {
+    const res = await apiRequest("/auth/forgot-password", {
+      method: "POST",
+      auth: false,
+      body: { email: email.trim() },
+    });
+
+    return {
+      success: true,
+      message: res.message,
+      debugOtp: res.data?.debug_otp, 
+    };
+  } catch (err) {
+    return toFailure(err);
+  }
+};
+
+export const resetPassword = async ({
+  email,
+  otp,
+  password,
+  passwordConfirmation,
+}) => {
+  try {
+    const res = await apiRequest("/auth/reset-password", {
+      method: "POST",
+      auth: false,
+      body: {
+        email: email.trim(),
+        otp,
+        password,
+        password_confirmation: passwordConfirmation,
+      },
+    });
+
+    return { success: true, message: res.message };
+  } catch (err) {
+    return toFailure(err);
+  }
+};
+
+export { getAuth, isAuthenticated, logout } from "./authStorage";

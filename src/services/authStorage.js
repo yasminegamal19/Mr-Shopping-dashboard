@@ -16,6 +16,12 @@ export const getAuth = () => {
   }
 };
 
+export const updateAuthUser = (patch) => {
+  const auth = getAuth();
+  if (!auth) return;
+  saveAuth({ ...auth, user: { ...auth.user, ...patch } });
+};
+
 export const logout = () => {
   localStorage.removeItem(AUTH_KEY);
 };
