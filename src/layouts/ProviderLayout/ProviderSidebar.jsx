@@ -1,7 +1,7 @@
 import { NavLink } from "react-router-dom";
 import { getProviderModules } from "../../features/providers/providerModules";
 import { getProviderDisplay } from "../../features/providers/providerDisplay";
-import logo from "../../assets/logo.png";
+import logo from "../../assets/Logo.png";
 import "./ProviderSidebar.css";
 import { getProviderType } from "../../services/authStorage";
 
