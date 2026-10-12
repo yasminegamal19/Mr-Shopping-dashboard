@@ -8,16 +8,18 @@ import {
   LogOut,
   User,
 } from "lucide-react";
-import { mockProvider } from "../../features/providers/providerConfig";
-import "./ProviderTopbar.css";
 import { useNavigate } from "react-router-dom";
+import { getProviderDisplay } from "../../features/providers/providerDisplay";
 import { logoutUser } from "../../services/authService";
+import "./ProviderTopbar.css";
 
 const ProviderTopbar = ({ onToggleSidebar }) => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [isLoggingOut, setIsLoggingOut] = useState(false);
   const menuRef = useRef(null);
   const navigate = useNavigate();
-  const [isLoggingOut, setIsLoggingOut] = useState(false);
+
+  const { ownerName, subtitle, initial } = getProviderDisplay();
 
   const handleLogout = async () => {
     if (isLoggingOut) return;
@@ -25,6 +27,12 @@ const ProviderTopbar = ({ onToggleSidebar }) => {
     await logoutUser();
     navigate("/login", { replace: true });
   };
+
+  const goToSettings = () => {
+    setMenuOpen(false);
+    navigate("/provider/settings");
+  };
+
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (menuRef.current && !menuRef.current.contains(e.target)) {
@@ -71,13 +79,11 @@ const ProviderTopbar = ({ onToggleSidebar }) => {
             className="provider-topbar-user-btn"
             onClick={() => setMenuOpen((prev) => !prev)}
           >
-            <div className="provider-avatar">
-              {mockProvider.ownerName.charAt(0)}
-            </div>
+            <div className="provider-avatar">{initial}</div>
 
             <div className="provider-topbar-user-info">
-              <strong>{mockProvider.ownerName}</strong>
-              <span>{mockProvider.name}</span>
+              <strong>{ownerName}</strong>
+              <span>{subtitle}</span>
             </div>
 
             <ChevronDown
@@ -88,16 +94,16 @@ const ProviderTopbar = ({ onToggleSidebar }) => {
 
           {menuOpen && (
             <div className="provider-topbar-dropdown">
-              <button type="button">
+              <button type="button" onClick={goToSettings}>
                 <User size={16} />
                 <span>Profile</span>
               </button>
-              <button type="button">
+              <button type="button" onClick={goToSettings}>
                 <Settings size={16} />
                 <span>Settings</span>
               </button>
               <hr />
-           
+
               <button
                 type="button"
                 className="danger"

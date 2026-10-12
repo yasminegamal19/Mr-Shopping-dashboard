@@ -1,12 +1,13 @@
 import { NavLink } from "react-router-dom";
 import { getProviderModules } from "../../features/providers/providerModules";
-import { mockProvider } from "../../features/providers/providerConfig";
-import logo from "../../assets/logo.png"; 
+import { getProviderDisplay } from "../../features/providers/providerDisplay";
+import logo from "../../assets/logo.png";
 import "./ProviderSidebar.css";
 import { getProviderType } from "../../services/authStorage";
 
 export default function ProviderSidebar({ open, onClose }) {
   const modules = getProviderModules(getProviderType());
+  const { ownerName, subtitle, initial } = getProviderDisplay();
 
   return (
     <aside className={`provider-sidebar ${open ? "open" : ""}`}>
@@ -46,13 +47,11 @@ export default function ProviderSidebar({ open, onClose }) {
 
       <div className="provider-sidebar-footer">
         <div className="provider-sidebar-provider">
-          <div className="provider-avatar">
-            {mockProvider.ownerName.charAt(0)}
-          </div>
+          <div className="provider-avatar">{initial}</div>
 
           <div className="provider-sidebar-provider-info">
-            <strong>{mockProvider.ownerName}</strong>
-            <span>{mockProvider.name}</span>
+            <strong>{ownerName}</strong>
+            <span>{subtitle}</span>
           </div>
         </div>
       </div>

@@ -2,18 +2,11 @@ import {
   LayoutDashboard,
   ShoppingBag,
   Package,
-  Boxes,
-  Truck,
+  Tags,
   BriefcaseBusiness,
   CalendarDays,
-  CreditCard,
   Wallet,
   Star,
-  Tag,
-  Tags,
-  BarChart3,
-  MessageCircle,
-  Bell,
   Settings,
   User2,
 } from "lucide-react";
@@ -35,12 +28,6 @@ const commonAfterBusinessModules = [
     icon: User2,
   },
   {
-    key: "payments",
-    label: "Payments",
-    path: "/provider/payments",
-    icon: CreditCard,
-  },
-  {
     key: "earnings",
     label: "Earnings",
     path: "/provider/earnings",
@@ -53,35 +40,13 @@ const commonAfterBusinessModules = [
     icon: Star,
   },
   {
-    key: "offers",
-    label: "Offers",
-    path: "/provider/offers",
-    icon: Tag,
-  },
-  {
-    key: "reports",
-    label: "Reports",
-    path: "/provider/reports",
-    icon: BarChart3,
-  },
-  {
-    key: "chat",
-    label: "Chat",
-    path: "/provider/chat",
-    icon: MessageCircle,
-  },
-  {
-    key: "notifications",
-    label: "Notifications",
-    path: "/provider/notifications",
-    icon: Bell,
-  },
-  {
     key: "settings",
     label: "Settings",
     path: "/provider/settings",
     icon: Settings,
   },
+  // فعّليهم لما تعملي صفحاتهم + routes ليهم في router.jsx:
+  // payments, offers, reports, chat, notifications
 ];
 
 const productModules = [
@@ -103,33 +68,10 @@ const productModules = [
     path: "/provider/orders",
     icon: ShoppingBag,
   },
-  {
-    key: "inventory",
-    label: "Inventory",
-    path: "/provider/inventory",
-    icon: Boxes,
-  },
-  {
-    key: "delivery",
-    label: "Delivery",
-    path: "/provider/delivery",
-    icon: Truck,
-  },
+  // فعّليهم لاحقاً: inventory, delivery
 ];
 
 const serviceModules = [
-  {
-    key: "requests",
-    label: "Requests",
-    path: "/provider/requests",
-    icon: BriefcaseBusiness,
-  },
-  {
-    key: "services",
-    label: "Services",
-    path: "/provider/services",
-    icon: BriefcaseBusiness,
-  },
   {
     key: "bookings",
     label: "Bookings",
@@ -137,11 +79,12 @@ const serviceModules = [
     icon: CalendarDays,
   },
   {
-    key: "schedule",
-    label: "Schedule",
-    path: "/provider/schedule",
-    icon: CalendarDays,
+    key: "services",
+    label: "Services",
+    path: "/provider/services",
+    icon: BriefcaseBusiness,
   },
+  // requests, schedule
 ];
 
 export const getProviderModules = (providerType) => {

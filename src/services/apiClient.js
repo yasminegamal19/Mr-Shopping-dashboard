@@ -58,3 +58,40 @@ export async function apiRequest(
 
   return data;
 }
+
+// تحميل ملف محمي بالـ token. بيرجّع { blob, filename }
+export async function apiDownload(path, lang = "en") {
+  const token = getAuth()?.token;
+
+  let response;
+  try {
+    response = await fetch(`${BASE_URL}${path}`, {
+      headers: {
+        Accept: "*/*",
+        "Accept-Language": lang,
+        ...(token ? { Authorization: `Bearer ${token}` } : {}),
+      },
+    });
+  } catch {
+    throw new ApiError("Cannot reach the server. Please try again.", 0);
+  }
+
+  if (!response.ok) {
+    if (response.status === 401) {
+      logout();
+      window.location.href = "/login";
+    }
+    const err = await response.json().catch(() => ({}));
+    throw new ApiError(
+      err.message || "Could not download the file.",
+      response.status,
+      err.errors || {},
+    );
+  }
+
+  const disposition = response.headers.get("content-disposition") || "";
+  const match = disposition.match(/filename\*?=(?:UTF-8'')?"?([^";]+)"?/i);
+  const filename = match ? decodeURIComponent(match[1]) : null;
+
+  return { blob: await response.blob(), filename };
+}

@@ -443,3 +443,194 @@
     border-color: var(--color-border);
     box-shadow: none;
 }
+.doc-state {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--spacing-3);
+    margin: 0;
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+}
+
+.doc-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.doc-list li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--spacing-4);
+    flex-wrap: wrap;
+    padding: var(--spacing-4) 0;
+    border-bottom: 1px solid var(--color-border-light);
+}
+
+.doc-list li:last-child {
+    border-bottom: none;
+}
+
+.doc-info {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-3);
+}
+
+.doc-icon {
+    display: grid;
+    place-items: center;
+    width: 38px;
+    height: 38px;
+    background: var(--color-primary-light);
+    color: var(--color-primary);
+    border-radius: var(--radius-md);
+}
+
+.doc-info strong {
+    display: block;
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    color: var(--color-text-primary);
+}
+
+.doc-status {
+    display: inline-block;
+    margin-top: 2px;
+    padding: 2px 10px;
+    border-radius: var(--radius-full);
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-medium);
+    background: var(--color-border-light);
+    color: var(--color-text-secondary);
+}
+
+.doc-status.approved {
+    background: rgba(34, 197, 94, 0.12);
+    color: #15803d;
+}
+
+.doc-status.rejected {
+    background: var(--color-danger-light);
+    color: var(--color-danger);
+}
+
+.doc-status.pending {
+    background: rgba(245, 158, 11, 0.14);
+    color: #b45309;
+}
+
+.doc-download {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-2);
+    padding: 8px var(--spacing-4);
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    color: var(--color-text-primary);
+    cursor: pointer;
+    transition: all var(--transition-base);
+}
+
+.doc-download:hover:not(:disabled) {
+    background: var(--color-primary-light);
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+}
+
+.doc-download:disabled {
+    opacity: 0.6;
+    cursor: wait;
+}
+
+.st-hint {
+    font-size: var(--font-size-xs);
+    color: var(--color-text-secondary);
+}
+
+.st-note {
+    margin: var(--spacing-4) 0 0;
+    padding: var(--spacing-3) var(--spacing-4);
+    background: rgba(245, 158, 11, 0.12);
+    border-radius: var(--radius-md);
+    font-size: var(--font-size-xs);
+    line-height: 1.6;
+    color: #b45309;
+}
+
+.st-image-error {
+    display: block;
+    margin-top: 4px;
+    font-size: var(--font-size-xs);
+    color: var(--color-danger);
+}
+.hours-list li.hours-day-row {
+    align-items: flex-start;
+}
+
+.slots {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: var(--spacing-2);
+}
+
+.slot-row {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-3);
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+}
+
+.slot-row input[type="time"] {
+    height: 38px;
+    padding: 0 var(--spacing-3);
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    font-size: var(--font-size-sm);
+    color: var(--color-text-primary);
+    outline: none;
+    transition: all var(--transition-base);
+}
+
+.slot-row input[type="time"]:focus {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px var(--color-primary-light);
+}
+
+.slot-remove {
+    display: grid;
+    place-items: center;
+    width: 32px;
+    height: 32px;
+    background: transparent;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    color: var(--color-text-secondary);
+    cursor: pointer;
+    transition: all var(--transition-base);
+}
+
+.slot-remove:hover {
+    background: var(--color-danger-light);
+    border-color: var(--color-danger);
+    color: var(--color-danger);
+}
+
+@media (max-width: 640px) {
+    .slots {
+        align-items: flex-start;
+        width: 100%;
+    }
+
+    .slot-row {
+        flex-wrap: wrap;
+    }
+}

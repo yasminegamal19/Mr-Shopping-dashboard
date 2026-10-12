@@ -27,3 +27,11 @@ export const logout = () => {
 };
 
 export const isAuthenticated = () => !!getAuth()?.token;
+
+// "product" | "service" | null
+export const getProviderType = () =>
+  getAuth()?.user?.provider?.provider_type ?? null;
+
+// "approved" | "pending" | ... | null
+export const getApprovalStatus = () =>
+  getAuth()?.user?.provider?.approval_status ?? null;

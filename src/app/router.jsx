@@ -22,12 +22,14 @@ import ProviderLayout from "../layouts/ProviderLayout/ProviderLayout";
 import ProviderOrders from "../pages/provider/orders/ProviderOrders";
 import ProviderProducts from "../pages/provider/products/ProviderProducts";
 import ProviderCategories from "../pages/provider/categories/ProviderCategories";
+import ProviderServices from "../pages/provider/services/ProviderServices";
+import ProviderBookings from "../pages/provider/bookings/ProviderBookings";
 import ProviderSettings from "../pages/provider/settings/ProviderSettings";
 import ProviderEarnings from "../pages/provider/earnings/ProviderEarnings";
 import ProviderReviews from "../pages/provider/reviews/ProviderReviews";
 import ProviderCustomers from "../pages/provider/customers/ProviderCustomers";
 
-import { getAuth } from "../services/authStorage";
+import { getAuth, getProviderType } from "../services/authStorage";
 
 function ProtectedRoute({ children, allowedRole }) {
   const auth = getAuth();
@@ -46,6 +48,17 @@ function ProtectedRoute({ children, allowedRole }) {
     }
 
     return <Navigate to="/login" replace />;
+  }
+
+  return children;
+}
+
+// يمنع التاجر من فتح صفحات النوع التاني
+function ProviderTypeRoute({ type, children }) {
+  const current = getProviderType();
+
+  if (current && current !== type) {
+    return <Navigate to="/provider/dashboard" replace />;
   }
 
   return children;
@@ -92,8 +105,38 @@ function Router() {
         <Route index element={<Navigate to="/provider/dashboard" replace />} />
         <Route path="dashboard" element={<ProviderDashboard />} />
         <Route path="orders" element={<ProviderOrders />} />
-        <Route path="products" element={<ProviderProducts />} />
-        <Route path="categories" element={<ProviderCategories />} />
+        <Route
+          path="products"
+          element={
+            <ProviderTypeRoute type="product">
+              <ProviderProducts />
+            </ProviderTypeRoute>
+          }
+        />
+        <Route
+          path="categories"
+          element={
+            <ProviderTypeRoute type="product">
+              <ProviderCategories />
+            </ProviderTypeRoute>
+          }
+        />
+        <Route
+          path="services"
+          element={
+            <ProviderTypeRoute type="service">
+              <ProviderServices />
+            </ProviderTypeRoute>
+          }
+        />
+        <Route
+          path="bookings"
+          element={
+            <ProviderTypeRoute type="service">
+              <ProviderBookings />
+            </ProviderTypeRoute>
+          }
+        />
         <Route path="settings" element={<ProviderSettings />} />
         <Route path="earnings" element={<ProviderEarnings />} />
         <Route path="reviews" element={<ProviderReviews />} />
